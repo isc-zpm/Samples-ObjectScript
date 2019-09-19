@@ -8,8 +8,9 @@ ClassMethod PrivatePublic()
     do ..Private()   // call a private method
     do ..Public(9)	// call a public method
 }
+
 /// a private method with public variable a
-ClassMethod Private() [Private, Publiclist = a]
+ClassMethod Private() [ Private, PublicList = a ]
 {
     write !, "setting a"  set a = 1
     write !, "setting b"  set b = 2
@@ -18,14 +19,14 @@ ClassMethod Private() [Private, Publiclist = a]
 }
 
 /// a public method with an argument and a return value
-ClassMethod Public(num as %Numeric) as %String
+ClassMethod Public(num As %Numeric) As %String
 {
     write !, "my favorite number is ", num
     return "This is my return value!!!"
 }
 
 /// demo of passing arguments by value and reference
-ClassMethod PassingArguments(num as %Numeric)
+ClassMethod PassingArguments(num As %Numeric)
 {
     // pass by value    read !, "Enter a number: ", num
     set dblnum = ..DoubleByVal(num)
@@ -38,20 +39,20 @@ ClassMethod PassingArguments(num as %Numeric)
 
     // num passed IN by value, result passed OUT by reference
     do ..DoubleByRef2(num, .result)
-    write !, "By Reference 2: ", num, " doubled again is: ", result	
+    write !, "By Reference 2: ", num, " doubled again is: ", result
 }
 
-ClassMethod DoubleByVal(anynumber as %Numeric) as %Numeric
+ClassMethod DoubleByVal(anynumber As %Numeric) As %Numeric
 {
 	return anynumber * 2
 }
 
-ClassMethod DoubleByRef1(ByRef anynumber as %Numeric)
+ClassMethod DoubleByRef1(ByRef anynumber As %Numeric)
 {
 	set anynumber = anynumber * 2
 }
 
-ClassMethod DoubleByRef2(anynumber as %Numeric, Output retnumber as %Numeric)
+ClassMethod DoubleByRef2(anynumber As %Numeric, Output retnumber As %Numeric)
 {
 	set retnumber = anynumber * 2
 }
@@ -144,7 +145,7 @@ ClassMethod For()
         read !, "Know what? ", wh
         quit:(wh = "NO!")
         write "   That's what!"
-    }	
+    }
 }
 
 /// generate Fibonacci sequences
@@ -169,7 +170,7 @@ ClassMethod Fibonacci()
 }
 
 /// examples of system and custom exceptions
-ClassMethod Exceptions(x as %Numeric)
+ClassMethod Exceptions(x As %Numeric)
 {
 	// <UNDEFINED> error throws a system exception
 	try {
@@ -307,7 +308,7 @@ ClassMethod FocusedLoopStart()
         set ln = $order(^PersonI("Name", ln))
         quit:(ln = "")
         write !, ln
-    }	
+    }
 }
 
 /// loop through last names that MATCH substring
@@ -321,7 +322,7 @@ ClassMethod FocusedLoopStartEnd()
         // quit if no match or at end
         quit:($extract(ln, 1, $length(substring)) '= substring)
         write !, ln
-    }	
+    }
 }
 
 /// examples of conversion methods
@@ -341,4 +342,5 @@ ClassMethod Conversions()
 	write !, "Using $zconvert for capitalizing words: ", $zconvert(x, "W")
 	write !, "Using $zstrip to remove whitespace: ", $zstrip(x, "*W")
 }
+
 }

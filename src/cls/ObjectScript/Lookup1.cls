@@ -2,8 +2,9 @@ Class ObjectScript.Lookup1
 {
 
 /// main loop section, dispatch to different methods based on user input
-ClassMethod Main()     
-{   
+ClassMethod Main()
+{
+   
     while ..GetInput(.type, .search) {  
         if (type = "help")    { do ..Help() }
         elseif (type = "dob") { do ..DOB(search) }
@@ -11,7 +12,7 @@ ClassMethod Main()
 }
 
 /// prompt user for a lookup string, return search type and search string
-ClassMethod GetInput(output type as %String, output search as %String) as %Boolean
+ClassMethod GetInput(Output type As %String, Output search As %String) As %Boolean
 {
 	read !, "Lookup: ", lookup
     return:(lookup = "") 0  // user entered nothing so return FALSE
@@ -35,7 +36,7 @@ ClassMethod Help()
 }
 
 /// exact date of birth lookup
-ClassMethod DOB(intdob as %Date)
+ClassMethod DOB(intdob As %Date)
 {
     // is the date of birth in the index?
     if '$data(^PersonI("DOB", intdob) ) {
@@ -56,7 +57,7 @@ ClassMethod DOB(intdob as %Date)
 }
 
 /// given an ID, retrieve data and write it on a line
-ClassMethod DisplayLine(id as %Integer)
+ClassMethod DisplayLine(id As %Integer)
 {
     set $listbuild(name, phone, intdob) = ^PersonD(id)
 	/* the line above is equivalent to
@@ -64,6 +65,7 @@ ClassMethod DisplayLine(id as %Integer)
 	       name = $list(answers, 1),
 	       phone = $list(answers, 2),
 	       intdob = $list(answers, 3) */
-    write name, ?20, phone, ?35, $zdate(intdob, 2)	
+    write name, ?20, phone, ?35, $zdate(intdob, 2)
 }
+
 }

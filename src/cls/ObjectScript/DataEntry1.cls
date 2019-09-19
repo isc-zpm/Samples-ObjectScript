@@ -11,6 +11,7 @@ ClassMethod Main()
     // display the data
     write !!!, "Name:", ?20, name
     write !, "Phone:", ?20, phone
-    write !, "DOB:", ?20, dob	
+    write !, "DOB:", ?20, dob
 }
+
 }

@@ -39,8 +39,9 @@ ClassMethod Main()
 }
 
 /// Is num negative?
-ClassMethod IsNegative(num as %Numeric) 
-{ 
+ClassMethod IsNegative(num As %Numeric)
+{
+ 
     if (num '> 0) {
         write "  Enter a positive number."
         return 1      // Return true
@@ -48,11 +49,11 @@ ClassMethod IsNegative(num as %Numeric)
     else {
         write "  Accepted."
         return 0      // Return false
-    }    
+    }
 }
 
 /// Compute and display area and hypotenuse
-ClassMethod Compute(units as %String, A as %Numeric, B as %Numeric) [Private]
+ClassMethod Compute(units As %String, A As %Numeric, B As %Numeric) [ Private ]
 {
     set area = (A * B) / 2, 
         area = $justify(area, 0, 2),    // Round hypot to 2 places
@@ -62,4 +63,5 @@ ClassMethod Compute(units as %String, A as %Numeric, B as %Numeric) [Private]
     write !!, "The area of this triangle is ", area, " square ", units, ".",
           !!, "The hypotenuse is ", hypot, " ", units, "."
 }
+
 }

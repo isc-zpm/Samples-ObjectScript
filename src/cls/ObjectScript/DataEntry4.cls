@@ -2,8 +2,9 @@ Class ObjectScript.DataEntry4
 {
 
 /// Main loop section
-ClassMethod Main()     
-{   
+ClassMethod Main()
+{
+   
     while ..Prompt(.answers) {       
         do ..Display(answers)
         do ..Store(answers)
@@ -11,8 +12,9 @@ ClassMethod Main()
 }
 
 /// prompt
-ClassMethod Prompt(ByRef answers as %String) as %Boolean
-{   
+ClassMethod Prompt(ByRef answers As %String) As %Boolean
+{
+   
     do {
         read !, "Name: ", name
         return:(name = "") 0  // user entered nothing so return FALSE, exit loop AND method
@@ -30,12 +32,11 @@ ClassMethod Prompt(ByRef answers as %String) as %Boolean
     while '..ValidDOB(dob, .intdob)
     set answers = $listbuild(name, phone, intdob)
     return 1  // return true
-
 }
 
 /// use pattern match to validate a name in "Last,First" format.
 /// write error message if invalid
-ClassMethod ValidName(name as %String) as %Boolean     
+ClassMethod ValidName(name As %String) As %Boolean
 {
     if (name?1U.L1","1U.L) {
         return 1 }
@@ -48,7 +49,7 @@ ClassMethod ValidName(name as %String) as %Boolean
 /// use RegEx ($match) to validate a phone in "###-####" or "###-###-####" format.
 /// returns the converted phone by reference
 /// write error message if invalid
-ClassMethod ValidPhone(ByRef phone as %String) as %Boolean     
+ClassMethod ValidPhone(ByRef phone As %String) As %Boolean
 {
     if $match(phone, "(\d{3}-)?\d{3}-\d{4}") {
         set:($match(phone, "\d{3}-\d{4}")) phone = "617-" _ phone  // add default area code
@@ -68,7 +69,7 @@ ClassMethod ValidPhone(ByRef phone as %String) as %Boolean
 /// validate a date of birth using $zdateh and $horolog
 /// returns the internal form of the date of birth by reference
 /// write error message if invalid
-ClassMethod ValidDOB(date as %String, Output convdate as %Date) as %Boolean     
+ClassMethod ValidDOB(date As %String, Output convdate As %Date) As %Boolean
 {
     set convdate = $zdateh(date, 5,,,,,,, -1)
     if (convdate = -1) {
@@ -85,8 +86,9 @@ ClassMethod ValidDOB(date as %String, Output convdate as %Date) as %Boolean
 }
 
 /// display the data
-ClassMethod Display(answers as %String)
-{   
+ClassMethod Display(answers As %String)
+{
+   
     set $listbuild(name, phone, intdob) = answers
 	/* the line above is equivalent to
 	   set name = $list(answers, 1),
@@ -100,7 +102,7 @@ ClassMethod Display(answers as %String)
 }
 
 /// store the data
-ClassMethod Store(answers as %String)
+ClassMethod Store(answers As %String)
 {
     read !, "Store? (y/n): ", yn  // ask if user wants to store
     // only go on if user says yes
@@ -130,7 +132,7 @@ ClassMethod Store(answers as %String)
 	set chunk = (id\64000) + 1, position = (id#64000) + 1
     set $bit(^PersonI("Bitmap-ID", chunk), position) = 1
     tcommit
-	write "...stored"    
+	write "...stored"
 }
 
 /// load some test records
@@ -159,4 +161,5 @@ ClassMethod Load()
 	set person.Name = $list(answers, 1), person.Phone = $list(answers, 2), person.DOB = $list(answers, 3)
 	write person.%Save(),!
 }
+
 }

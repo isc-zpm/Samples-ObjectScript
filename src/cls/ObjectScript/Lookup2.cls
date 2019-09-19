@@ -2,8 +2,9 @@ Class ObjectScript.Lookup2
 {
 
 /// main loop section, dispatch to different methods based on user input
-ClassMethod Main()     
-{   
+ClassMethod Main()
+{
+   
     do ..CurrentCount()
     while ..GetInput(.type, .search) {  
         if (type = "help") {do ..Help() set id = ""}
@@ -15,7 +16,7 @@ ClassMethod Main()
 }
 
 /// prompt user for a lookup string, return search type and search string
-ClassMethod GetInput(output type as %String, output search as %String) as %Boolean
+ClassMethod GetInput(Output type As %String, Output search As %String) As %Boolean
 {
 	read !, "Lookup: ", lookup
     return:(lookup = "") 0  // user entered nothing so return FALSE
@@ -55,7 +56,7 @@ ClassMethod Help()
 }
 
 /// exact date of birth lookup
-ClassMethod DOB(intdob as %Date, output id as %Integer)
+ClassMethod DOB(intdob As %Date, Output id As %Integer)
 {
     set id = ""
     // is the date of birth in the index?
@@ -78,7 +79,7 @@ ClassMethod DOB(intdob as %Date, output id as %Integer)
 }
 
 /// lookup phone or area code
-ClassMethod Phone(phone as %String, output id as %Integer)
+ClassMethod Phone(phone As %String, Output id As %Integer)
 {
     set id = ""
     set count = 0
@@ -111,7 +112,7 @@ ClassMethod Phone(phone as %String, output id as %Integer)
 }
 
 /// lookup names in these forms: Smith; Smith,John; Smith,J; Sm,John; Sm,J
-ClassMethod Name(name as %String, output id as %Integer)
+ClassMethod Name(name As %String, Output id As %Integer)
 {
     set id = ""
     set count = 0
@@ -146,10 +147,10 @@ ClassMethod Name(name as %String, output id as %Integer)
     }
     if (count = 0) {write "...no matches"}
     else {do ..Select(.matches, .id)}
- }
+}
 
 /// given an ID, retrieve data and write it on a line
-ClassMethod DisplayLine(id as %Integer)
+ClassMethod DisplayLine(id As %Integer)
 {
     set $listbuild(name, phone, intdob) = ^PersonD(id)
 	/* the line above is equivalent to
@@ -157,7 +158,7 @@ ClassMethod DisplayLine(id as %Integer)
 	       name = $list(answers, 1),
 	       phone = $list(answers, 2),
 	       intdob = $list(answers, 3) */
-    write name, ?20, phone, ?35, $zdate(intdob, 2)	
+    write name, ?20, phone, ?35, $zdate(intdob, 2)
 }
 
 /// count the "1" bits from the chunks of the Bitmap-ID index
@@ -171,11 +172,11 @@ ClassMethod CurrentCount()
         // add the "1" bits to the count
         set records = records + $bitcount(bits, 1)
     }
-	write !, "There are ", records, " records in the database." 	
+	write !, "There are ", records, " records in the database."
 }
 
 /// user makes a choice from the matches array, return the corresponding ID or ""
-ClassMethod Select(ByRef matches as %Integer, Output id as %Integer)
+ClassMethod Select(ByRef matches As %Integer, Output id As %Integer)
 {
     set id = ""
     for {
@@ -184,14 +185,14 @@ ClassMethod Select(ByRef matches as %Integer, Output id as %Integer)
         set id = $get(matches(choice))
         quit:(id '= "")  // stop looping if user makes a valid choice
         write "...Invalid choice"
-        }	
+        }
 }
 
 /// display chosen record
-ClassMethod TakeAction(id as %Integer)
+ClassMethod TakeAction(id As %Integer)
 {
     set rec = ^PersonD(id) 
-    do ##class(ObjectScript.DataEntry4).Display(rec)	
+    do ##class(ObjectScript.DataEntry4).Display(rec)
 }
 
 }
