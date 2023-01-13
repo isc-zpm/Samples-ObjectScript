@@ -18,7 +18,7 @@ To set up the sample:
 
 1. Clone or [download](http://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=asamples) the repository.
 2. If you have not yet created a namespace in InterSystems IRIS, follow the [detailed instructions](http://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GSA_config_namespace_create) to do so.
-3. Using Atelier, create a project that's connected to InterSystems IRIS.
+3. Using [VSCode-ObjectScript](https://github.com/intersystems-community/vscode-objectscript), create a project that's connected to InterSystems IRIS.
 4. Right-click your project icon, and click Import. Then select General > File System.
 5. Click the Browse button, and browse to the folder for the ObjectScript folder within the repository you downloaded.
 6. Select all 10 cls files, and click the checkbox for the Create top-level folder option.
